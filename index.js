@@ -71,26 +71,26 @@ function watch(globs, opts, cb) {
 
 	outputStream._read = function _read() { };
 
-	var watcher = chokidar.watch(globs, opts);
+	// var watcher = chokidar.watch(globs, opts);
 
 	opts.events.forEach(function (ev) {
-		watcher.on(ev, processEvent.bind(undefined, ev));
+	//	watcher.on(ev, processEvent.bind(undefined, ev));
 	});
 
 	['add', 'change', 'unlink', 'addDir', 'unlinkDir', 'error', 'ready', 'raw']
 		.forEach(function (ev) {
-			watcher.on(ev, outputStream.emit.bind(outputStream, ev));
+			// watcher.on(ev, outputStream.emit.bind(outputStream, ev));
 		});
 
 	outputStream.add = function add(newGlobs) {
 		newGlobs = normalizeGlobs(newGlobs)
 			.map(resolveGlob);
-		watcher.add(newGlobs);
+		// watcher.add(newGlobs);
 		globs.push.apply(globs, newGlobs);
 	};
-	outputStream.unwatch = watcher.unwatch.bind(watcher);
+	// outputStream.unwatch = watcher.unwatch.bind(watcher);
 	outputStream.close = function () {
-		watcher.close();
+		// watcher.close();
 		this.emit('end');
 	};
 
